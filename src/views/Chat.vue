@@ -1,7 +1,11 @@
 <template>
+
+
 	<div class="container chat">
 		<h2 class="text-primary text-center">Real-Time Chat</h2>
 		<h5 class="text-secondary text-center">Powered by Vue.js & Firebase</h5>
+
+		<h5>{{ chatroom }}</h5>
 		<div class="card">
 			<div class="card-body">
 				<!-- Display "No messages yet" if there are no messages in DB -->
@@ -18,7 +22,7 @@
 				</div>
 			</div>
 			<div class="card-action">
-				<CreateMessage :name="name"/>
+				<CreateMessage :name="name" :chatroom="chatroom"/>
 			</div>
 		</div>
 	</div>
@@ -31,7 +35,7 @@ import moment from 'moment';
 
 export default {
 	name: 'Chat',
-	props: ['name'],
+	props: ['name', "chatroom"],
 	components: { 
 		CreateMessage
 	},
@@ -41,7 +45,13 @@ export default {
 		}
 	},
 	created() {
-		let ref = fb.collection("messages").orderBy('timestamp')
+		/* 
+		   put messages from database into "messages" 
+		   list in chronological order
+		*/
+		console.log(this.chatroom);
+		//  db connection to get messages in the current chatroom 
+		let ref = fb.collection("rooms").doc(this.chatroom).collection("messages").orderBy("timestamp");
 		ref.onSnapshot(snapshot => {
 			snapshot.docChanges().forEach(change => {
 				if (change.type == "added") {
