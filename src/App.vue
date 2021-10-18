@@ -10,10 +10,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: rgb(255, 255, 255);
-  /*color: #2c3e50; */
-  background-color: rgb(40, 40, 40);
-
+  color: rgb(245, 245, 245);
+  /*co  r: #2c3e50; */
+  background-color: rgb(25, 25, 25);
 }
 
 #nav {

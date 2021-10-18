@@ -4,7 +4,7 @@
 			<div id="text-input" class="form-group"> 
 				<input id="textbox" type="text" name="message" class="form-control" placeholder="Enter Message ..." v-model="newMessage">
 				<p class="text-danger" v-if="errorText">{{ errorText }}</p>
-				<button id="textbtn" class="btn btn-primary" type="submit" name="action">Submit</button>
+				<button id="textbtn" class="btn" type="submit" name="action">Submit</button>
 			</div>
 			
 		</form>
@@ -47,6 +47,7 @@ export default {
 
 
 </script>
+
 <style>
 #text-input {
 	display: flex;
@@ -54,8 +55,8 @@ export default {
 }
 
 #textbox {
-	color: rgb(255, 255, 255);
-	background-color: rgb(70, 70, 70);
+	color: rgb(245, 245, 245);
+	background-color: rgb(60, 60, 60);
 	border: rgb(40, 40, 40);
 	height: 40px;
 	margin-top: 10px;
@@ -64,33 +65,32 @@ export default {
 #textbox:focus {
 	box-shadow: none;
 	border: 1px solid;
-	border-color: rgb(255, 230, 0);
-	color: rgb(255, 255, 255);
+	border-color: rgb(255, 230, 50);
 }
 
 #textbtn {
-	color: rgb(255, 230, 0);
+	color: rgb(255, 235, 50);
 	margin-top: 10px;
 	margin-left: 10px;
 	float: right;
 	font-weight: bold;
 	border-width: 3px;
 	border-radius: 0;
-	border-color: rgb(255, 230, 0);
-	background-color: rgb(55, 55, 55);
+	border-color: rgb(255, 230, 50);
+	background-color: rgb(40, 40, 40);
 }
 
 #textbtn:focus {
 	box-shadow: none;
 	border: 3px solid;
-	color: rgb(30, 30, 30);
-	background-color: rgb(255, 230, 0);
+	color: rgb(40, 40, 40);
+	background-color: rgb(255, 230, 50);
 	border-color: rgb(255, 230, 0);
 }
 
 #textbtn:hover {
-	color: rgb(30, 30, 30);
-	background-color: rgb(255, 230, 0);
+	color: rgb(40, 40, 40);
+	background-color: rgb(255, 230, 50);
 	border-color: rgb(255, 230, 0);
 }
 

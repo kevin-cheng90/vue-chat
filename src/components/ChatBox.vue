@@ -1,12 +1,12 @@
 <template>
 	<div>
 		<div class="chat">
-			<div id="chat-top" class="d-flex justify-content-between">
+			<div id="chat-top" class="d-flex justify-content-between text-yellow">
 				<h4 class="chatRoomName">{{ chatroom }}</h4>
 				<span id="closeComponent" v-on:click="close()">&#x2573;</span>
 			</div>
 			<div id="chatbox" class="card">	
-				<div class="card-body">
+				<div class="card-body chat-body">
 					<!-- Display "No messages yet" if there are no messages in DB -->
 					<p class="text-secondary nomessages" v-if="messages.length == 0">
 						[No messages yet]
@@ -48,9 +48,10 @@ export default {
 	created() {
 		/* 
 		   put messages from database into "messages" 
-		   list in chronological order
+		   list in reverse chronological order
 		*/
 		// ref makes db connection to get messages in the current chatroom 
+		this.$parent.$on('update', )
 		let ref = fb.collection("rooms").doc(this.chatroom).collection("messages").orderBy("timestamp");
 		ref.onSnapshot(snapshot => {
 			snapshot.docChanges().forEach(change => {
@@ -64,7 +65,7 @@ export default {
 					});
 				}
 			})
-		})
+		});
 	},
 	methods: {
 		close() {
@@ -74,8 +75,8 @@ export default {
 	}
 
 }
-
 </script>
+
 
 <style>
 
@@ -83,20 +84,19 @@ export default {
 	font-size: 1.4em;
 	padding-bottom: 0px;
 	text-align: left;
-	color: rgb(255, 230, 0);
 }
 
 #chatbox {
-	background-color: rgb(55, 55, 55);
+	background-color: rgb(40, 40, 40);
 }
 
 .text-yellow {
-	color: rgb(255, 230, 0);
+	color: rgb(255, 235, 50);
 }
 
 .chat {
 	padding-bottom: 40px;
-	background-color: rgb(40,40,40);
+	background-color: rgb(25,25,25);
 }
 
 .chat h2{
@@ -118,6 +118,10 @@ export default {
 	font-size: 0.7em;
 }
 
+.chat-body {
+	height: 315px;
+}
+
 .messages {
 	max-height: 300px;
 	text-align: left;
@@ -128,8 +132,8 @@ export default {
 	position: relative;
 	cursor: pointer;
 	color: rgb(200, 200, 200);
-
 }
+
 #closeComponent:hover {
 	font-weight: bolder;
 	color: rgb(255, 230, 0);
@@ -139,7 +143,6 @@ export default {
 	padding-top: 50px;
 	display: flex;
 	justify-content: space-between;
-
 }
 
 </style>
