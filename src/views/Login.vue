@@ -80,7 +80,7 @@ export default {
 
 	.app-name {
 		font-size: 4em;
-		color: rgb(255, 230, 0);
+		color: rgb(255, 200, 0);
 		margin: auto;
 	}
 
@@ -123,17 +123,17 @@ export default {
 	.entry-box:focus {
 		box-shadow: none !important;
 		border: 1px solid !important;
-		border-color: rgb(255, 230, 50) !important;
+		border-color: rgb(255, 200, 0) !important;
 	}
 
 	#login-submit {
-		color: rgb(255, 235, 50);
+		color: rgb(255, 200, 0);
 		margin-top: 10px;
 		margin-bottom: 15px;
 		font-weight: bold;
 		border-width: 3px;
 		border-radius: 0;
-		border-color: rgb(255, 230, 50);
+		border-color: rgb(255, 200, 0);
 		background-color: rgb(40, 40, 40);
 	}
 
@@ -141,14 +141,14 @@ export default {
 		box-shadow: none;
 		border: 3px solid;
 		color: rgb(40, 40, 40);
-		background-color: rgb(255, 230, 50);
-		border-color: rgb(255, 230, 0);
+		background-color: rgb(255, 200, 0);
+		border-color: rgb(255, 200, 0);
 	}
 
 	#login-submit:hover {
 		color: rgb(40, 40, 40);
-		background-color: rgb(255, 230, 50);
-		border-color: rgb(255, 230, 0);
+		background-color: rgb(255, 200, 0);
+		border-color: rgb(255, 200, 0);
 	}
 
 

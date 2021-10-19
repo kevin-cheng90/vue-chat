@@ -59,24 +59,24 @@ export default {
 	background-color: rgb(60, 60, 60);
 	border: rgb(40, 40, 40);
 	height: 40px;
-	margin-top: 10px;
+	margin-top: 20px;
 }
 
 #textbox:focus {
 	box-shadow: none;
 	border: 1px solid;
-	border-color: rgb(255, 230, 50);
+	border-color: rgb(255, 200, 0);
 }
 
 #textbtn {
-	color: rgb(255, 235, 50);
-	margin-top: 10px;
+	color: rgb(255, 200, 0);
+	margin-top: 20px;
 	margin-left: 10px;
 	float: right;
 	font-weight: bold;
 	border-width: 3px;
 	border-radius: 0;
-	border-color: rgb(255, 230, 50);
+	border-color: rgb(255, 200, 0);
 	background-color: rgb(40, 40, 40);
 }
 
@@ -84,14 +84,14 @@ export default {
 	box-shadow: none;
 	border: 3px solid;
 	color: rgb(40, 40, 40);
-	background-color: rgb(255, 230, 50);
-	border-color: rgb(255, 230, 0);
+	background-color: rgb(255, 200, 0);
+	border-color: rgb(255, 200, 0);
 }
 
 #textbtn:hover {
 	color: rgb(40, 40, 40);
-	background-color: rgb(255, 230, 50);
-	border-color: rgb(255, 230, 0);
+	background-color: rgb(255, 200, 50);
+	border-color: rgb(255, 200, 0);
 }
 
 </style>

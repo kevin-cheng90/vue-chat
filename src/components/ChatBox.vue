@@ -1,10 +1,6 @@
 <template>
 	<div>
 		<div class="chat">
-			<div id="chat-top" class="d-flex justify-content-between text-yellow">
-				<h4 class="chatRoomName">{{ chatroom }}</h4>
-				<span id="closeComponent" v-on:click="close()">&#x2573;</span>
-			</div>
 			<div id="chatbox" class="card">	
 				<div class="card-body chat-body">
 					<!-- Display "No messages yet" if there are no messages in DB -->
@@ -21,6 +17,7 @@
 					</div>
 				</div>
 				<div class="card-action">
+					<!-- Create message componenet using passed name and chatroom -->
 					<CreateMessage :name="name" :chatroom="chatroom"/>
 				</div>
 			</div>
@@ -51,7 +48,6 @@ export default {
 		   list in reverse chronological order
 		*/
 		// ref makes db connection to get messages in the current chatroom 
-		this.$parent.$on('update', )
 		let ref = fb.collection("rooms").doc(this.chatroom).collection("messages").orderBy("timestamp");
 		ref.onSnapshot(snapshot => {
 			snapshot.docChanges().forEach(change => {
@@ -80,18 +76,12 @@ export default {
 
 <style>
 
-.chatRoomName {
-	font-size: 1.4em;
-	padding-bottom: 0px;
-	text-align: left;
-}
-
 #chatbox {
 	background-color: rgb(40, 40, 40);
 }
 
 .text-yellow {
-	color: rgb(255, 235, 50);
+	color: rgb(255, 200, 0);
 }
 
 .chat {
@@ -126,23 +116,6 @@ export default {
 	max-height: 300px;
 	text-align: left;
 	overflow: auto;
-}
-
-#closeComponent {
-	position: relative;
-	cursor: pointer;
-	color: rgb(200, 200, 200);
-}
-
-#closeComponent:hover {
-	font-weight: bolder;
-	color: rgb(255, 230, 0);
-}
-
-#chat-top {
-	padding-top: 50px;
-	display: flex;
-	justify-content: space-between;
 }
 
 </style>
