@@ -7,9 +7,9 @@ admin.initializeApp();
 
 // Checks the last room messaged when a message is created
 // and deletes messages if there are over 10;
-exports.onMessageCreate = functions.firestore
+exports.cleanMessages = functions.firestore
 	// rooms/{room_name}/messages/{document_ID}/(message)
-	.document('rooms/{room_name}/messages/{document_ID}')
+	.document('rooms/{room_name}')
 	.onCreate((snap, context) => {
 		const ref = admin.firestore().collection("rooms").orderBy("lastMessageTime", "desc").limit(1);
 		ref.onSnapshot(snapshot => {
@@ -28,7 +28,7 @@ exports.onMessageCreate = functions.firestore
 								console.log("Message deleted successfully");
 							}).catch((error) => {
 								console.log("Error deleting message: " + error);
-							})
+							});
 						}
 						i++;
 					});
@@ -42,7 +42,7 @@ exports.onMessageCreate = functions.firestore
 // Checks for when a room is created and deletes
 // one when there are more than 5 rooms. 
 // Deletes the room that has been idle longest (oldest lastMessageTime)
-exports.onRoomCreate = functions.firestore
+exports.cleanRooms = functions.firestore
 	.document("rooms/{room_name}")
 	.onCreate((snap, context) => {
 		const ref = admin.firestore().collection("rooms").orderBy("lastMessageTime");
