@@ -64,92 +64,87 @@ export default {
 </script>
 
 <style>
-	.app-info-container {
+/* CSS Breaks at 768px so handle that later */
+.app-info {
+	margin-top: 20vh;
+}
 
-	}
+.app-description {
+	font-size: 1.6em;
+	display: inline-block;
+}
 
-	/* CSS Breaks at 768px so handle that later */
-	.app-info {
-		margin-top: 20vh;
-	}
+.app-name {
+	font-size: 4em;
+	color: rgb(255, 200, 0);
+	margin: auto;
+}
 
-	.app-description {
-		font-size: 1.6em;
-		display: inline-block;
-	}
+.login {
+	max-width: 450px;
+	max-height: 450px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
 
-	.app-name {
-		font-size: 4em;
-		color: rgb(255, 200, 0);
-		margin: auto;
-	}
+.card-container {
+	padding-top: 50px;
+	min-height: 100vh;
+	height: 100%;
+	padding-bottom: 50px;
+}
 
+.card-login {
+	margin-top: 10vh;
+	background-color: rgb(40, 40, 40) !important; 
+}
 
-	.login {
-		max-width: 450px;
-		max-height: 450px;
-		display: block;
-		margin-left: auto;
-		margin-right: auto;
-	}
+.card-title {
+	font-size: 3em;
+	padding-bottom: 10px;
+	margin-top: 5px;
+}
 
-	.card-container {
-		padding-top: 50px;
-		min-height: 100vh;
-		height: 100%;
-		padding-bottom: 50px;
-	}
+/* important to override bootstrap's properties */
+.entry-box {
+	color: rgb(245, 245, 245) !important;
+	background-color: rgb(50, 50, 50) !important;
+	border: rgb(40, 40, 40) !important;
+	margin-bottom: 10px;
+	margin-left: 2.5%;
+	max-width: 95%;
+}
 
-	.card-login {
-		margin-top: 10vh;
-		background-color: rgb(40, 40, 40) !important; 
-	}
+.entry-box:focus {
+	box-shadow: none !important;
+	border: 1px solid !important;
+	border-color: rgb(255, 200, 0) !important;
+}
 
-	.card-title {
-		font-size: 3em;
-		padding-bottom: 10px;
-		margin-top: 5px;
-	}
+#login-submit {
+	color: rgb(255, 200, 0);
+	margin-top: 10px;
+	margin-bottom: 15px;
+	font-weight: bold;
+	border-width: 3px;
+	border-radius: 0;
+	border-color: rgb(255, 200, 0);
+	background-color: rgb(40, 40, 40);
+}
 
-	.entry-box {
-		color: rgb(245, 245, 245) !important;
-		background-color: rgb(50, 50, 50) !important;
-		border: rgb(40, 40, 40) !important;
-		margin-bottom: 10px;
-		margin-left: 2.5%;
-		max-width: 95%;
-	}
+#login-submit:focus {
+	box-shadow: none;
+	border: 3px solid;
+	color: rgb(40, 40, 40);
+	background-color: rgb(255, 200, 0);
+	border-color: rgb(255, 200, 0);
+}
 
-	.entry-box:focus {
-		box-shadow: none !important;
-		border: 1px solid !important;
-		border-color: rgb(255, 200, 0) !important;
-	}
-
-	#login-submit {
-		color: rgb(255, 200, 0);
-		margin-top: 10px;
-		margin-bottom: 15px;
-		font-weight: bold;
-		border-width: 3px;
-		border-radius: 0;
-		border-color: rgb(255, 200, 0);
-		background-color: rgb(40, 40, 40);
-	}
-
-	#login-submit:focus {
-		box-shadow: none;
-		border: 3px solid;
-		color: rgb(40, 40, 40);
-		background-color: rgb(255, 200, 0);
-		border-color: rgb(255, 200, 0);
-	}
-
-	#login-submit:hover {
-		color: rgb(40, 40, 40);
-		background-color: rgb(255, 200, 0);
-		border-color: rgb(255, 200, 0);
-	}
-
+#login-submit:hover {
+	color: rgb(40, 40, 40);
+	background-color: rgb(255, 200, 0);
+	border-color: rgb(255, 200, 0);
+}
 
 </style>

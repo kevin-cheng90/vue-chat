@@ -10,9 +10,9 @@
 					<!-- Display messages if there are any in the DB -->
 					<div class="messages" v-chat-scroll="{always:false, smooth:true}">
 						<div v-for="message in messages" :key="message.id">
-							<span class="text-secondary time">{{ message.timestamp }}</span>
 							<span class="text-yellow">[{{ message.name }}]:</span>
 							<span>{{ message.message }}</span>
+							<span class="text-secondary time">{{ message.timestamp }}</span>
 						</div>
 					</div>
 				</div>
@@ -48,7 +48,7 @@ export default {
 		   list in reverse chronological order
 		*/
 		// ref makes db connection to get messages in the current chatroom 
-		let ref = fb.collection("rooms").doc(this.chatroom).collection("messages").orderBy("timestamp");
+		const ref = fb.collection("rooms").doc(this.chatroom).collection("messages").orderBy("timestamp");
 		ref.onSnapshot(snapshot => {
 			snapshot.docChanges().forEach(change => {
 				if (change.type == "added") {
@@ -97,8 +97,8 @@ export default {
 .chat h5{
 	margin-top: 0px;
 	margin-bottom: 40px;
-
 }
+
 .chat span{
 	font-size: 1em;
 }

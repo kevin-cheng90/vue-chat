@@ -35,6 +35,11 @@ export default {
 					timestamp: Date.now()
 				}).catch(err => {
 					console.log(err)
+				});
+				// Add a timestamp for the last time the room was messaged in.
+				// This will be used to choose which chat room to delete
+				fb.collection("rooms").doc(this.chatroom).set({
+					lastMessageTime: Date.now()
 				})
 				this.newMessage = null;
 				this.errorText = null;

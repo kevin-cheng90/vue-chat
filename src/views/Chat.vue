@@ -54,7 +54,6 @@ export default {
 		ChatBox
 	},
 	data() {
-		this.rooms = 1;
 		return {
 			initialRoom: this.chatroom,
 			newRoom: null,
@@ -65,7 +64,7 @@ export default {
 	methods: {
 		addRoomClick() {
 			/* 
-				adds another chatbox component
+				reveals the text box for the user to type in their new room
 			*/
 			var addRoomButton = document.getElementById("add-room-button");
 			var addNewRoom = document.getElementById("add-new-room");
@@ -74,8 +73,10 @@ export default {
 			document.getElementById("room-name-input").focus();
 		},
 		enterNewRoom() {
+			/* 
+				changes chatbox size and the second chatroom
+			*/
 			this.newRoom = document.getElementById("room-name-input").value;
-
 			if (this.newRoom) {
 				this.newRoom = this.newRoom.toUpperCase();
 				document.getElementById("name-and-chat1").classList.remove("col-md-8");
@@ -90,11 +91,10 @@ export default {
 		},
 
 		triggerClose(component_num) {
-			// Need to hide close button of the other component
-
-			// First chatbox
+			/* 
+				handles closing the chatbox		
+			*/
 			var component_1 = this.$refs.component1
-			// Second chatbox
 			var component_2 = this.$refs.component2
 
 			// Close chatbox 1
@@ -115,6 +115,7 @@ export default {
 					name_chat.add("col-md-8")
 				}
 			}
+			// readd the "add another room" button
 			document.getElementById("close-chat1").hidden = true;
 			document.getElementById("add-room-button").hidden = false;
 
@@ -138,24 +139,20 @@ export default {
 	background-color: rgb(25, 25, 25);
 }
 
-
 #add-room-button:hover {
 	color: rgb(25, 25, 25);
 	background-color: rgb(255, 200, 0);
 }
-
 
 #add-room-button:focus {
 	color: rgb(25, 25, 25);
 	background-color: rgb(255, 200, 0);
 }
 
-
 .chat {
 	min-height: 100vh;
 	height: 100%;
 }
-
 
 .chatbox-description {
 	display: flex; 
@@ -164,7 +161,6 @@ export default {
 	margin: auto;
 	color: rgb(255, 200, 0);
 }
-
 
 .close-chat {
 	color: rgb(255, 255, 255); 
@@ -175,19 +171,15 @@ export default {
 	float:right
 }
 
-
 .close-chat:hover {
 	font-weight: bolder;
 	color: rgb(255, 200, 0);
-
 }
-
 
 .header-info {
 	padding-top: 20px;
 	color: rgb(220, 220, 220);
 }
-
 
 #enter-room-btn {
 	color: rgb(255, 200, 0);
@@ -200,7 +192,6 @@ export default {
 	background-color: rgb(25, 25, 25);
 }
 
-
 #enter-room-btn:hover {
 	color: rgb(25, 25, 25);
 	background-color: rgb(255, 200, 0);
@@ -211,11 +202,9 @@ export default {
 	background-color: rgb(255, 200, 0);
 }
 
-
 .room-name {
 	font-size: 1.4em;
 }
-
 
 #room-name-input {
 	color: rgb(245, 245, 245);
@@ -224,12 +213,10 @@ export default {
 	height: 40px;
 }
 
-
 #room-name-input:focus {
 	box-shadow: none;
 	border: 1px solid;
 	border-color: rgb(255, 200, 0);
 }
-
 
 </style>
