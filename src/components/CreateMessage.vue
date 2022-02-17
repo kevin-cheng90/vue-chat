@@ -13,7 +13,7 @@
 
 <script>
 import fb from "@/firebase/init";
-
+import firebase from "firebase/compat/app";
 export default {
 	name: "CreateMessage",
 	props: ["name", "chatroom"],
@@ -29,7 +29,8 @@ export default {
 		*/
 		createMessage() {
 			if (this.newMessage) {
-				fb.collection("rooms").doc(this.chatroom).collection("messages").add({
+				const roomRef = fb.collection("rooms").doc(this.chatroom);
+				roomRef.collection("messages").add({
 					message: this.newMessage,
 					name: this.name,
 					timestamp: Date.now()
@@ -38,9 +39,11 @@ export default {
 				});
 				// Add a timestamp for the last time the room was messaged in.
 				// This will be used to choose which chat room to delete
-				fb.collection("rooms").doc(this.chatroom).set({
-					lastMessageTime: Date.now()
-				})
+				roomRef.update({
+					lastMessageTime: Date.now(),
+					messageCount: firebase.firestore.FieldValue.increment(1)
+
+				});
 				this.newMessage = null;
 				this.errorText = null;
 			} else {

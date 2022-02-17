@@ -9,31 +9,41 @@ admin.initializeApp();
 // and deletes messages if there are over 10;
 exports.cleanMessages = functions.firestore
 	// rooms/{room_name}/messages/{document_ID}/(message)
-	.document('rooms/{room_name}')
+	.document('rooms/{room_name}/messages/{message}')
 	.onCreate((snap, context) => {
 		const ref = admin.firestore().collection("rooms").orderBy("lastMessageTime", "desc").limit(1);
-		ref.onSnapshot(snapshot => {
-			// iterates over only 1 document since we limited it to 1
-			snapshot.forEach((doc) => {
-				// doc.ref.path + "messages" = rooms/{room_name}/messages
-				const messagesRef = admin.firestore().collection(doc.ref.path + "/messages").orderBy("timestamp");
-				messagesRef.onSnapshot(snapshot2 => {
-					i = 0;
-					size = snapshot2.size;
-					amountToDelete = size - 10;
-					// now we can loop through the messages and delete the oldest ones
-					snapshot2.forEach((message_doc) => {
-						if (i < amountToDelete) {
-							message_doc.ref.delete().then(() => {
-								console.log("Message deleted successfully");
+		let messageCount = 0;
+		ref.get().then(roomDoc => {
+			roomDoc.forEach((doc) => {
+				// Gets the messageCount field value
+				messageCount = doc.data().messageCount;
+				// Store 10 messages so 10 is the offset
+				let amountToDelete = messageCount-10
+				let deleted = 0
+				if (amountToDelete > 0) {
+					// Limits documents to the amount to delete, saves reads
+					const messagesRef = admin.firestore().collection(doc.ref.path + "/messages").orderBy("timestamp").limit(amountToDelete);
+					messagesRef.get().then(messageDoc => {
+						messageDoc.forEach((message) => {
+							message.ref.delete().then(() => {
+								deleted += 1;
+								console.log("Message deleted Successfully");
 							}).catch((error) => {
 								console.log("Error deleting message: " + error);
-							});
-						}
-						i++;
+							})
+						})
 					});
-				});
+					// Updates messaceCount value to reflect the amount of documents deleted
+					const FieldValue = admin.firestore.FieldValue;
+					const pathArray = doc.ref.path.split("/");
+					console.log("Deleted: " + deleted);
+					let roomFieldVal = admin.firestore().collection(pathArray[0]).doc(pathArray[1]).update({
+						"messageCount": FieldValue.increment(0-deleted)
+					});
+				}
 			});
+		}).catch((error) => {
+			console.log("Error retrieving room document: " + error);
 		});
 	});
 

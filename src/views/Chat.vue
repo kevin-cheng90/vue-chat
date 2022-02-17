@@ -102,12 +102,13 @@ export default {
 				// Sets chatbox 2 to chatbox 1 and closes chatbox 2
 				this.initialRoom = this.newRoom;
 				this.newRoom = null;
-
 			}
 			// Close chatbox 2
 			else if (component_2 != null && component_num == 2) {
 				// Set newRoom to null, which close chatbox 2
-				this.newRoom = null;
+//				this.newRoom.close()
+				component_2.close()
+				//this.newRoom = null;
 				var name_chat = document.getElementById("name-and-chat1").classList;
 				// resize chatbox;
 				if (name_chat.contains("col-md-6")) {
