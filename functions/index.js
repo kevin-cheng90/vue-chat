@@ -12,33 +12,29 @@ exports.cleanMessages = functions.firestore
 	.document('rooms/{room_name}/messages/{message}')
 	.onCreate((snap, context) => {
 		const ref = admin.firestore().collection("rooms").orderBy("lastMessageTime", "desc").limit(1);
-		let messageCount = 0;
 		ref.get().then(roomDoc => {
 			roomDoc.forEach((doc) => {
 				// Gets the messageCount field value
-				messageCount = doc.data().messageCount;
-				// Store 10 messages so 10 is the offset
+				let messageCount = doc.data().messageCount;
+				// Store 10 messages so 10 is the osffset
 				let amountToDelete = messageCount-10
-				let deleted = 0
 				if (amountToDelete > 0) {
-					// Limits documents to the amount to delete, saves reads
-					const messagesRef = admin.firestore().collection(doc.ref.path + "/messages").orderBy("timestamp").limit(amountToDelete);
+					// Deletes oldest message 
+					const messagesRef = admin.firestore().collection(doc.ref.path + "/messages").orderBy("timestamp").limit(1);
 					messagesRef.get().then(messageDoc => {
 						messageDoc.forEach((message) => {
 							message.ref.delete().then(() => {
-								deleted += 1;
+								// Increments messaceCount value to accurately reflect new value
+								const FieldValue = admin.firestore.FieldValue;
+								const pathArray = doc.ref.path.split("/");
+								let roomFieldVal = admin.firestore().collection(pathArray[0]).doc(pathArray[1]).update({
+									"messageCount": FieldValue.increment(-1)
+								});
 								console.log("Message deleted Successfully");
 							}).catch((error) => {
 								console.log("Error deleting message: " + error);
 							})
 						})
-					});
-					// Updates messaceCount value to reflect the amount of documents deleted
-					const FieldValue = admin.firestore.FieldValue;
-					const pathArray = doc.ref.path.split("/");
-					console.log("Deleted: " + deleted);
-					let roomFieldVal = admin.firestore().collection(pathArray[0]).doc(pathArray[1]).update({
-						"messageCount": FieldValue.increment(0-deleted)
 					});
 				}
 			});
