@@ -18,7 +18,6 @@
 					<button id="enter-room-btn" class="btn" type="button" v-on:click="enterNewRoom">Enter</button>
 				</div>
 				<p class="text-danger" v-if="errorText">{{errorText}}</p>
-
 			</form>
 		</div>
 

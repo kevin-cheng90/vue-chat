@@ -3,9 +3,12 @@
 		<form @submit.prevent="createMessage" autocomplete="off">
 			<div id="text-input" class="form-group"> 
 				<input id="textbox" type="text" name="message" class="form-control" placeholder="Enter Message..." v-model="newMessage">
-				<p class="text-danger" v-if="errorText">{{ errorText }}</p>
 				<button id="textbtn" class="btn" type="submit" name="action">Submit</button>
 			</div>
+			<div>
+				<p class="text-danger" v-if="errorText">{{ errorText }}</p>
+			</div>
+
 		</form>
 	</div>
 </template>
@@ -13,21 +16,49 @@
 <script>
 import fb from "@/firebase/init";
 import firebase from "firebase/compat/app";
+
 export default {
 	name: "CreateMessage",
 	props: ["name", "chatroom"],
 	data() {
 		return {
+			messageBuffer: [],
 			newMessage: null,
 			errorText: null
 		}
 	},
 	methods: {
+		/*
+			Limits users to 5 messages in 10 seconds
+		*/
+		spamFilter() {
+			let newMessageTime = new Date();
+			if (this.messageBuffer.length > 5) {
+				// (new date - old date) / 1000 = difference in seconds
+				if ((newMessageTime - this.messageBuffer[0]) / 1000 < 10) {
+					this.errorText = "Your typing skills are amazing! Please wait before sending your next message.";
+					return true;
+				}
+				else {
+					// shift the buffer
+					this.messageBuffer.shift();
+					this.messageBuffer.push(newMessageTime);
+					return false;
+				}
+			}
+			// fill the buffer
+			this.messageBuffer.push(newMessageTime);
+			return false;
+		},
+
 		/* 
 			Creates a message and adds it to the database
 		*/
 		createMessage() {
 			if (this.newMessage) {
+				if (this.spamFilter()) {
+					return;
+				}
 				const roomRef = fb.collection("rooms").doc(this.chatroom);
 				roomRef.collection("messages").add({
 					message: this.newMessage,
