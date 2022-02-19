@@ -1,7 +1,12 @@
 <template>
 	<div>
+		<div class="col-md-12" style="float:right;">
+			<button id="settings" style="float:right;">&#9881;</button>
+		</div>
 		<div class="header-info">
-			<h2 class="text-center">Real-Time Chat</h2>
+			<h2 class="text-center">
+				Real-Time Chat
+			</h2>
 			<h5 class="text-center">Powered by Vue.js & Firebase</h5>
 		</div>
 		<button id="add-room-button" type="button" class="btn" v-on:click="addRoomClick()">Add another room</button>
@@ -20,7 +25,6 @@
 		<!-- Chatbox component lies within this container -->
 		<div class="container chat chat-body">
 			<div id="chat-container" class="row">
-
 				<div id="name-and-chat1" class="name-and-chat col-md-8" style="margin:auto;" v-if="initialRoom" :key="initialRoom">
 					<span id="chatbox1-name" class="col-md-12 chatbox-description">
 						<div class="room-name">{{initialRoom}}</div>
@@ -106,9 +110,9 @@ export default {
 			// Close chatbox 2
 			else if (component_2 != null && component_num == 2) {
 				// Set newRoom to null, which close chatbox 2
-//				this.newRoom.close()
+				// this.newRoom.close()
 				component_2.close()
-				//this.newRoom = null;
+				// this.newRoom = null;
 				var name_chat = document.getElementById("name-and-chat1").classList;
 				// resize chatbox;
 				if (name_chat.contains("col-md-6")) {
@@ -116,10 +120,9 @@ export default {
 					name_chat.add("col-md-8")
 				}
 			}
-			// readd the "add another room" button
+			// read the "add another room" button
 			document.getElementById("close-chat1").hidden = true;
 			document.getElementById("add-room-button").hidden = false;
-
 		}
 	}
 }
@@ -148,6 +151,15 @@ export default {
 #add-room-button:focus {
 	color: rgb(25, 25, 25);
 	background-color: rgb(255, 200, 0);
+}
+
+#settings {
+	background: None;
+	color: rgb(255,255,255);
+	font-size: 30px;
+	border: None;
+	font-weight: bold;
+
 }
 
 .chat {

@@ -64,7 +64,6 @@ export default {
 </script>
 
 <style>
-/* CSS Breaks at 768px so handle that later */
 .app-info {
 	margin-top: 20vh;
 }

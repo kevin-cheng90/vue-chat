@@ -2,11 +2,10 @@
 	<div class="container" style="margin-bottom: 30px">
 		<form @submit.prevent="createMessage" autocomplete="off">
 			<div id="text-input" class="form-group"> 
-				<input id="textbox" type="text" name="message" class="form-control" placeholder="Enter Message ..." v-model="newMessage">
+				<input id="textbox" type="text" name="message" class="form-control" placeholder="Enter Message..." v-model="newMessage">
 				<p class="text-danger" v-if="errorText">{{ errorText }}</p>
 				<button id="textbtn" class="btn" type="submit" name="action">Submit</button>
 			</div>
-			
 		</form>
 	</div>
 </template>
@@ -39,10 +38,12 @@ export default {
 				});
 				// Add a timestamp for the last time the room was messaged in.
 				// This will be used to choose which chat room to delete
-				roomRef.update({
+				roomRef.set({
 					lastMessageTime: Date.now(),
 					messageCount: firebase.firestore.FieldValue.increment(1)
-
+				},
+				{
+					merge:true
 				});
 				this.newMessage = null;
 				this.errorText = null;
