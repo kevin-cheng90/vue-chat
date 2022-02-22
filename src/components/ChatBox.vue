@@ -60,14 +60,11 @@ export default {
 						message: doc.data().message,
 						timestamp: moment(doc.data().timestamp).format("LTS")
 					});
-
 					// Keep in mind that shift is O(n) and not O(1).
 					// Deletes messages when array is size 50 or greater
 					if (this.messages.length > 50) {
 						this.messages.shift();
 					}
-					console.log(this.messages.length);
-
 				}
 			})
 		});

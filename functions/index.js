@@ -12,7 +12,7 @@ exports.cleanMessages = functions.firestore
 	.document('rooms/{room_name}/messages/{message}')
 	.onCreate((snap, context) => {
 		const ref = admin.firestore().collection("rooms").orderBy("lastMessageTime", "desc").limit(1);
-		ref.get().then(roomDoc => {
+		return ref.get().then(roomDoc => {
 			roomDoc.forEach((doc) => {
 				// Gets the messageCount field value
 				let messageCount = doc.data().messageCount;
@@ -21,10 +21,13 @@ exports.cleanMessages = functions.firestore
 				if (amountToDelete > 0) {
 					// Deletes oldest message 
 					const messagesRef = admin.firestore().collection(doc.ref.path + "/messages").orderBy("timestamp").limit(1);
-					messagesRef.get().then(messageDoc => {
+					return messagesRef.get().then(messageDoc => {
 						messageDoc.forEach((message) => {
+							const messages = message.data();
+							console.log("messages: " + messages);
+
 							message.ref.delete().then(() => {
-								// Increments messaceCount value to accurately reflect new value
+								// Increments messageCount value to accurately reflect new value
 								const FieldValue = admin.firestore.FieldValue;
 								const pathArray = doc.ref.path.split("/");
 								let roomFieldVal = admin.firestore().collection(pathArray[0]).doc(pathArray[1]).update({
@@ -52,7 +55,7 @@ exports.cleanRooms = functions.firestore
 	.document("rooms/{room_name}")
 	.onCreate((snap, context) => {
 		const ref = admin.firestore().collection("rooms").orderBy("lastMessageTime");
-		ref.onSnapshot(snapshot => {
+		return ref.onSnapshot(snapshot => {
 			i = 0;
 			size = snapshot.size;
 			amountToDelete = size - 5;

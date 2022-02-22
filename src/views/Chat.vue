@@ -1,8 +1,5 @@
 <template>
 	<div>
-		<div class="col-md-12" style="float:right;">
-			<button id="settings" style="float:right;">&#9881;</button>
-		</div>
 		<div class="header-info">
 			<h2 class="text-center">
 				Real-Time Chat
